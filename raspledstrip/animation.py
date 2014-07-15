@@ -370,10 +370,34 @@ class FillFromCenter(BaseAnimation):
         super(FillFromCenter, self).__init__(led_driver, start, end)
 
     def step(self, step_amount=1):
-        if self._step > self._led.lastIndex:
+        if self._step > self._center_point:
             self._step = 0
             self._led.fillOff()
         self._led.set(self._center_point + self._step, self._color)
         self._led.set(self._center_point - self._step, self._color)
         self._step += 1
+
+
+class BreathingLight(BaseAnimation):
+    def __init__(self, led_driver, red, green, blue, min_brightness, max_brightness, start=0, end=0):
+        self._base_red = red
+        self._base_green = green
+        self._base_blue = blue
+        self._min_bright = min_brightness
+        self._max_bright = max_brightness
+        self._direction = 1
+        super(BreathingLight, self).__init__(led_driver, start, end)
+
+    def step(self, step_amount=1):
+        if self._step > 254 or self._step < 1:
+            self._direction *= -1
+        self._led.fill(
+            Color(
+                self._base_red,
+                self._base_green,
+                self._base_blue,
+                self._min_bright + ((self._max_bright - self._min_bright) * (self._step / 255))
+            )
+        )
+        self._step += 1 * (self._direction)
 
