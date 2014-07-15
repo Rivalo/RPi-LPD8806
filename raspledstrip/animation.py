@@ -360,3 +360,20 @@ class AlertStrobe(BaseAnimation):
     def step(self, step_amount=1):
         self._led.fill(self._color) if self._step % 2 else self._led.all_off()
         self._step += step_amount
+
+
+class FillFromCenter(BaseAnimation):
+    def __init__(self, led_driver, fill_color, start=0, end=0):
+        self._strip_length = led_driver.lastIndex
+        self._center_point = int(self._strip_length/2)
+        self._color = fill_color
+        super(FillFromCenter, self).__init__(led_driver, start, end)
+
+    def step(self, step_amount=1):
+        if self._step > self._led.lastIndex:
+            self._step = 1
+            self._led.fillOff()
+        self._led.set(self._center_point + self._step, self._color)
+        self._led.set(self._center_point - self._step, self._color)
+        self._step += 1
+
