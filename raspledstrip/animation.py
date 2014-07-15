@@ -383,8 +383,8 @@ class BreathingLight(BaseAnimation):
         self._base_red = red
         self._base_green = green
         self._base_blue = blue
-        self._min_bright = min_brightness
-        self._max_bright = max_brightness
+        self._min_bright = float(min_brightness)
+        self._max_bright = float(max_brightness)
         self._direction = 1
         super(BreathingLight, self).__init__(led_driver, start, end)
 
