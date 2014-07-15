@@ -349,3 +349,14 @@ class RGBClock(BaseAnimation):
         self._led.fillRGB(r,g,b,self._sStart,self._sEnd)
 
         self._step = 0
+
+
+class AlertStrobe(BaseAnimation):
+
+    def __init__(self, led_driver, strobe_color, start=0, end=0):
+        self._color = strobe_color
+        super(AlertStrobe, self).__init__(led_driver, start, end)
+
+    def step(self, step_amount=1):
+        self._led.fill(self._color) if self._step % 2 else self._led.all_off()
+        self._step += step_amount
