@@ -371,7 +371,7 @@ class FillFromCenter(BaseAnimation):
 
     def step(self, step_amount=1):
         if self._step > self._led.lastIndex:
-            self._step = 1
+            self._step = 0
             self._led.fillOff()
         self._led.set(self._center_point + self._step, self._color)
         self._led.set(self._center_point - self._step, self._color)
