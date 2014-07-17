@@ -1,10 +1,15 @@
 import colorsys
 
+
 class Color:
-    """Main color object used by all methods."""
+    """
+    Main color object used by all methods.
+    """
 
     def __init__(self, r=0.0, g=0.0, b=0.0, bright=1.0):
-        """Initialize Color object with optional RGB and brightness values."""
+        """
+        Initialize Color object with optional RGB and brightness values.
+        """
 
         if r > 255.0 or r < 0.0 or g > 255.0 or g < 0.0 or b > 255.0 or b < 0.0:
             raise ValueError('RGB values must be between 0 and 255')
@@ -23,14 +28,17 @@ class Color:
 
     def __str__(self):
         return "%d,%d,%d" % (self.r, self.g, self.b)
-   
-def color_hex(hex):
-    """Helper for converting RGB and RGBA hex values to Color"""
-    hex = hex.strip('#')
-    if len(hex) == 6:
-        split = (hex[0:2],hex[2:4],hex[4:6])
-    elif len(hex) == 8:
-        split = (hex[0:2],hex[2:4],hex[4:6], hex[6:8])
+
+
+def color_hex(hex_string):
+    """
+    Helper for converting RGB and RGBA hex values to Color
+    """
+    hex_string = hex_string.strip('#')
+    if len(hex_string) == 6:
+        split = (hex_string[0:2], hex_string[2:4], hex_string[4:6])
+    elif len(hex_string) == 8:
+        split = (hex_string[0:2], hex_string[2:4], hex_string[4:6], hex_string[6:8])
     else:
         raise ValueError('Must pass in either a 6 or 8 character hex value!')
 
@@ -40,12 +48,14 @@ def color_hex(hex):
     else:
         r, g, b, alpha = [int(x, 16) for x in split]
 
-    alpha = alpha / 255.0
+    alpha /= 255.0
 
     return Color(r, g, b, alpha)
 
+
 class ColorHSV:
-    """Useful for natural color transitions.
+    """
+    Useful for natural color transitions.
 
     Increment hue to sweep through the colors.  Must call getColorRGB()
     before passing to any of the methods.
@@ -72,7 +82,9 @@ class ColorHSV:
 
 
 def wheel_color(position):
-    """Get color from wheel value (0 - 384)."""
+    """
+    Get color from wheel value (0 - 384).
+    """
     if position < 0:
         position = 0
     if position > 384:
@@ -99,9 +111,7 @@ class SysColors:
     white75 = Color(255, 255, 255, 0.75)
     white50 = Color(255, 255, 255, 0.5)
     white25 = Color(255, 255, 255, 0.25)
-
-    off = Color(0, 0, 0);
-
+    off = Color(0, 0, 0)
     red = Color(255, 0, 0)
     orange = Color(255, 127, 0)
     yellow = Color(255, 255, 0)

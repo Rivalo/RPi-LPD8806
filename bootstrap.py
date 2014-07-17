@@ -5,10 +5,8 @@ use "from bootstrap import *" from any script to do all the standard setup
 and checks needed by any script
 """
 
-from time import sleep
 from raspledstrip.ledstrip import *
-from raspledstrip.animation import *
-
+from raspledstrip.LPD8806 import LPD8806Native
 import os.path
 import sys
 
@@ -42,8 +40,8 @@ sudo chmod a+rw /dev/spidev0.0
 """)
     sys.exit(2)
 
-num = 36 * 10;
-led = LEDStrip(num)
+led_count = 36
+led = LEDStrip(LPD8806Native(led_count, dev))
 #led.setChannelOrder(ChannelOrder.BRG) #Only use this if your strip does not use the GRB order
 #led.setMasterBrightness(0.5) #use this to set the overall max brightness of the strip
 led.all_off()
