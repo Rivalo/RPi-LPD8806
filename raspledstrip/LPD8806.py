@@ -54,5 +54,5 @@ class LPD8806SPI(LEDDriver):
     def update(self, pixel_buffer):
         for led in range(self.led_count):
             self.spi.xfer2([i for i in pixel_buffer[led]])
-        self.spi.xfer2([0x00,0x00,0x00]) #zero fill the last to prevent stray colors at the end
+        self.spi.xfer2([0x00, 0x00, 0x00]) #zero fill the last to prevent stray colors at the end
         self.spi.xfer2([0x00]) #once more with feeling - this helps :)

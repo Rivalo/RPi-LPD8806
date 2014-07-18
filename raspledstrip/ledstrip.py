@@ -29,7 +29,7 @@ class LEDStrip:
         self.c_order = ChannelOrder.GRB
         self.last_index = self.led_count - 1
         self.master_brightness = 1.0
-        self.pixel_buffer = [bytearray(3)] * self.led_count
+        self.pixel_buffer = [bytearray(3) for i in range(self.led_count)]
 
         # Color calculations from
         # http://learn.adafruit.com/light-painting-with-raspberry-pi

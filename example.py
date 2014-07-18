@@ -48,7 +48,7 @@ for i in range(384):
     anim.step()
     led.update()
 
-led.fillOff()
+led.fill_off()
 
 #evenly distributed rainbow
 anim = RainbowCycle(led)
@@ -56,7 +56,7 @@ for i in range(384 * 2):
     anim.step()
     led.update()
 
-led.fillOff()
+led.fill_off()
 
 #setup colors for wipe and chase
 colors = [
@@ -74,7 +74,7 @@ for c in range(4):
         led.update()
     #sleep(0.03)
 
-led.fillOff()
+led.fill_off()
 
 for c in range(4):
     anim = ColorChase(led, colors[c])
@@ -84,7 +84,7 @@ for c in range(4):
         led.update()
     #sleep(0.03)
 
-led.fillOff()
+led.fill_off()
 
 #scanner: single color and changing color
 anim = LarsonScanner(led, Color(255, 0, 0))
@@ -93,7 +93,7 @@ for i in range(led.last_index * 4):
     led.update()
 #sleep(0.03)
 
-led.fillOff()
+led.fill_off()
 
 anim = LarsonRainbow(led, 2, 0.5)
 for i in range(led.last_index * 4):
