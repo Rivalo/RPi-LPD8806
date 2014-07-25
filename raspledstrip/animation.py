@@ -95,12 +95,12 @@ class ColorPattern(BaseAnimation):
         self._colors = colors
         self._colorCount = len(colors)
         self._width = width
-        self._total_width = self._width * self._colorCount;
+        self._total_width = self._width * self._colorCount
         self._dir = dir
 
     def step(self, amt=1):
         for i in range(self._size):
-            cIndex = ((i + self._step) % self._total_width) / self._width;
+            cIndex = ((i + self._step) % self._total_width) / self._width
             self._led.set(self._start + i, self._colors[cIndex])
         if self._dir:
             self._step += amt
@@ -213,7 +213,7 @@ class FireFlies(BaseAnimation):
         if self._step > self._led.leds:
             self._step = 0
 
-        self._led.fill_off();
+        self._led.fill_off()
 
         for i in range(self._count):
             pixel = random.randint(0, self._led.leds - 1)
@@ -336,20 +336,20 @@ import timecolors
 class RGBClock(BaseAnimation):
     """RGB Clock done with RGB LED strip(s)"""
 
-    def __init__(self, led_strip, hStart, hEnd, mStart, mEnd, sStart, sEnd):
+    def __init__(self, led_strip, h_start, h_end, m_start, m_end, s_start, s_end):
         super(RGBClock, self).__init__(led_strip, 0, 0)
-        if hEnd < hStart:
-            hEnd = hStart + 1
-        if mEnd < mStart:
-            mEnd = mStart + 1
-        if sEnd < sStart:
-            sEnd = sStart + 1
-        self._hStart = hStart
-        self._hEnd = hEnd
-        self._mStart = mStart
-        self._mEnd = mEnd
-        self._sStart = sStart
-        self._sEnd = sEnd
+        if h_end < h_start:
+            h_end = h_start + 1
+        if m_end < m_start:
+            m_end = m_start + 1
+        if s_end < s_start:
+            s_end = s_start + 1
+        self._hStart = h_start
+        self._hEnd = h_end
+        self._mStart = m_start
+        self._mEnd = m_end
+        self._sStart = s_start
+        self._sEnd = s_end
 
     def step(self, amt=1):
         t = time.localtime()
@@ -394,24 +394,29 @@ class FillFromCenter(BaseAnimation):
 
 class BreathingLight(BaseAnimation):
     def __init__(self, led_strip, red, green, blue, min_brightness, max_brightness, start=0, end=0):
+        super(BreathingLight, self).__init__(led_strip, start, end)
         self._base_red = red
         self._base_green = green
         self._base_blue = blue
         self._min_bright = float(min_brightness)
         self._max_bright = float(max_brightness)
         self._direction = 1
-        super(BreathingLight, self).__init__(led_strip, start, end)
+        self._step = 1
+
+    def scale_brightness(self, step_number):
+        return self._min_bright + ((self._max_bright - self._min_bright) * (float(step_number) / 255))
 
     def step(self, step_amount=1):
         if self._step > 254 or self._step < 1:
             self._direction *= -1
+
         self._led.fill(
             Color(
                 self._base_red,
                 self._base_green,
                 self._base_blue,
-                self._min_bright + ((self._max_bright - self._min_bright) * (self._step / 255))
+                self.scale_brightness(self._step)
             )
         )
-        self._step += 1 * (self._direction)
+        self._step += (1 * self._direction)
 

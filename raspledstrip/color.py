@@ -10,12 +10,10 @@ class Color:
         """
         Initialize Color object with optional RGB and brightness values.
         """
-
         if r > 255.0 or r < 0.0 or g > 255.0 or g < 0.0 or b > 255.0 or b < 0.0:
             raise ValueError('RGB values must be between 0 and 255')
         if bright > 1.0 or bright < 0.0:
             raise ValueError('Brightness must be between 0.0 and 1.0')
-
         self.r = r * bright
         self.g = g * bright
         self.b = b * bright
