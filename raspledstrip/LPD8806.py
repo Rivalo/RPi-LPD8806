@@ -26,7 +26,7 @@ class LPD8806Native(LEDDriver):
 
     #Push new data to strand
     def update(self, pixel_buffer):
-        for x in range(self.led_count):
+        for x in xrange(self.led_count):
             self.spi.write(pixel_buffer[x])
             self.spi.flush()
         #seems that the more lights we have the more you have to push zeros
@@ -52,7 +52,7 @@ class LPD8806SPI(LEDDriver):
         print 'py-spidev MHz: %d' % (self.spi.max_speed_hz / 1000000.0)
 
     def update(self, pixel_buffer):
-        for led in range(self.led_count):
+        for led in xrange(self.led_count):
             self.spi.xfer2([i for i in pixel_buffer[led]])
         self.spi.xfer2([0x00, 0x00, 0x00]) #zero fill the last to prevent stray colors at the end
         self.spi.xfer2([0x00]) #once more with feeling - this helps :)
