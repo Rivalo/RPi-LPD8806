@@ -26,8 +26,7 @@ class BaseAnimation(object):
         raise RuntimeError("Base class step() called. This shouldn't happen")
 
     def run(self, amt=1, sleep=None, max_steps=0):
-        self._step = 0
-        cur_step = 0
+        cur_step = self._step
         while max_steps == 0 or cur_step < max_steps:
             self._timeRef = self.__msTime()
             self.step(amt)
@@ -407,7 +406,7 @@ class BreathingLight(BaseAnimation):
         return self._min_bright + ((self._max_bright - self._min_bright) * (float(step_number) / 255))
 
     def step(self, step_amount=1):
-        if self._step > 254 or self._step < 1:
+        if self._step > 254 or self._step < 0:
             self._direction *= -1
 
         self._led.fill(

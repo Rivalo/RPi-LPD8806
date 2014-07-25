@@ -12,7 +12,7 @@ fill_animation.run(1, 30, 18)
 alert_animation = AlertStrobe(led_strip, alert_color)
 alert_animation.run(1, 20, 24)
 led_strip.all_off()
-fill_animation = BreathingLight(led_strip, 0, 255, 0, 0.1, 1.0)
+fill_animation = BreathingLight(led_strip, 0, 255, 0, 0.1, 1.0, 0, 0)
 fill_animation.run(1, 30, 1000)
 led_strip.all_off()
 
