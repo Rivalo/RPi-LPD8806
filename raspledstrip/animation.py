@@ -1,5 +1,4 @@
 import math
-import time
 import random
 
 from color import *
@@ -17,9 +16,9 @@ class BaseAnimation(object):
         self._size = self._end - self._start + 1
         self._step = 0
 
-        self._timeRef = 0
+        self._time_ref = 0
 
-    def __msTime(self):
+    def __ms_time(self):
         return time.time() * 1000.0
 
     def step(self, amt=1):
@@ -28,11 +27,11 @@ class BaseAnimation(object):
     def run(self, amt=1, sleep=None, max_steps=0):
         cur_step = self._step
         while max_steps == 0 or cur_step < max_steps:
-            self._timeRef = self.__msTime()
+            self._time_ref = self.__ms_time()
             self.step(amt)
             self._led.update()
             if sleep:
-                diff = (self.__msTime() - self._timeRef)
+                diff = (self.__ms_time() - self._time_ref)
                 t = max(0, (sleep - diff) / 1000.0)
                 if t == 0:
                     print "Timeout of %dms is less than the minimum of %d!" % (sleep, diff)
@@ -147,7 +146,7 @@ class ColorFade(BaseAnimation):
 
         c_index = (self._step / self._level_count) % self._color_count
         l_index = (self._step % self._level_count)
-        color = self._colors[c_index];
+        color = self._colors[c_index]
         self._led.fill(Color(color.r, color.g, color.b, self._levels[l_index]), self._start, self._end)
 
         self._step += amt
