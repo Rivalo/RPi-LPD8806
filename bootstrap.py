@@ -11,7 +11,7 @@ import os.path
 import sys
 
 # Check that the system is set up like we want it
-dev = '/dev/spidev0.0'
+dev = '/dev/spidev0.1'
 
 if not os.path.exists(dev):
     sys.stderr.write("""
