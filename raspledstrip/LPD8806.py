@@ -19,7 +19,7 @@ class LEDDriver(object):
 class LPD8806Native(LEDDriver):
     """Main driver for LPD8806 based LED strips"""
     
-    def __init__(self, led_count, dev="/dev/spidev0.0"):
+    def __init__(self, led_count, dev="/dev/spidev0.1"):
         super(LPD8806Native, self).__init__(led_count)
         self.dev = dev
         self.spi = open(self.dev, "wb")
